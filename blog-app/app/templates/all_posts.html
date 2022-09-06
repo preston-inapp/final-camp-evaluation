@@ -1,0 +1,26 @@
+{% extends "base.html" %} 
+
+{% block title %}Home{% endblock %}
+
+{% block content%}
+<i><h3 align="center">Blog Posts</h3></i><br>
+
+{% for post in posts %}
+<div class="card">
+  <div class="card-content">
+    <h4>{{post.title}}</h4>
+    <i>by <b>{{users[post.user_id - 1].first_name}}</b></i><br><br>
+    {% if post.data|length > 120 %}
+    {{ post.data[0:120] }}...
+    {% else %}
+    {{ post.data }}
+    {% endif %}
+  </div>
+  <div class="card-action">
+    <a href="/post/{{post.id}}" >Read more</a>
+  </div>
+</div>
+{% endfor %}
+
+
+{% endblock %}

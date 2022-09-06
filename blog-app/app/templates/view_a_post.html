@@ -1,0 +1,36 @@
+{% extends "base.html" %} 
+
+{% block title %}View Post{% endblock %}
+
+{% block content%}
+<br>
+<center>
+    <h1>{{post.title}}</h1>
+    by <b>{{author.first_name}}</b>
+</center>
+
+<br>
+<p>{{post.data}}</p>
+<br>
+<p>Posted on : <b>{{post.date}}</b></p>
+<br><br>
+
+
+<h4>Comments</h4>
+{% if current_user.is_authenticated %}
+<form method="post">
+    <textarea name="data" class="materialize-textarea" id="comment" placeholder="Comment"></textarea>
+    <input type="text" name="user_id" class="form-control" id="comment" hidden value="{{user.id}}">
+    <br>
+    <button type="submit" class="btn btn-primary">Post Comment</button>
+</form>
+{% else %}
+<i><a href="/login">Log In</a> to comment</i><br>
+{% endif %}
+
+<br>
+{% for comment in post.comments %}
+    <p><b>{{users[comment.user_id - 1].first_name}}</b> : {{comment.data}}</p>
+{% endfor %}
+
+{% endblock %}
